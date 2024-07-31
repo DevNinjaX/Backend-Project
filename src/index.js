@@ -3,12 +3,23 @@
 /* Second approach to connect Database */
 import connectDB from "./db/index.js";
 import dotenv from "dotenv";
+import {app} from "./app.js";
 
 dotenv.config({
     path: "./env"
 });
 
 connectDB()
+.then( () => {
+    
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is running on port ${process.env.PORT || 8000}`);
+    })
+    
+})
+.catch((err) => {
+    console.error("MongoDB connection failed!!!");
+})
 
 
 /* First approach to connect Database *//*
@@ -17,7 +28,7 @@ connectDB()
 import mongoose from "mongoose";
 
 // Importing the DB_NAME constant from the constants.js file
-import { DB_NAME } from "./constants.js";
+import { DB_NAME } from "./constranits.js";
 
 // Importing the dotenv library to manage environment variables
 import dotenv from "dotenv";
